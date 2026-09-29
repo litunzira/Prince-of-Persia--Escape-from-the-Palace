@@ -1,0 +1,15 @@
+﻿Build started 28/09/2026 14:37:23.
+     1>Project "C:\Users\USER\Downloads\Prince_of_Persia_Refactored\iGame\iGame.vcxproj" on node 2 (Rebuild target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\USER\Downloads\Prince_of_Persia_Refactored\iGame\Header Files" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\USER\Downloads\Prince_of_Persia_Refactored\iGame\Release\\" /Fd"C:\Users\USER\Downloads\Prince_of_Persia_Refactored\iGame\Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\USER\Downloads\Prince_of_Persia_Refactored\iGame\iGame.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\USER\Downloads\Prince_of_Persia_Refactored\iGame\iGame.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\USER\Downloads\Prince_of_Persia_Refactored\iGame\iGame.lib" /MACHINE:X86 /SAFESEH C:\Users\USER\Downloads\Prince_of_Persia_Refactored\iGame\Release\main.obj
+         Generating code
+         Finished generating code
+         iGame.vcxproj -> C:\Users\USER\Downloads\Prince_of_Persia_Refactored\iGame\iGame.exe
+     1>Done Building Project "C:\Users\USER\Downloads\Prince_of_Persia_Refactored\iGame\iGame.vcxproj" (Rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.09
