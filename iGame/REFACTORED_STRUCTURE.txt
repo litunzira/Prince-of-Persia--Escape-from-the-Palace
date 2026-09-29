@@ -1,0 +1,85 @@
+Prince of Persia - Header File Refactor
+
+Main functional headers requested:
+1. home.h       - home/menu buttons and menu-screen mouse actions
+2. controls.h   - keyboard/mouse controls and gameplay update/physics
+3. combat.h     - player and enemy striking power/damage
+4. sounds.h     - all sound effects and music functions
+5. images.h     - image assets, sprite drawing, background drawing, iDraw
+6. next_level.h - Level 1/2/3 setup and the P/O key transition functions
+
+Support headers:
+- common.h
+- game_types.h
+- game_globals.h
+- reset.h
+
+main.cpp includes all six functional headers and starts Level 1.
+iGraphics calls iDraw(), iMouse(), iKeyboard(), iSpecialKeyboard(), and update()
+as callbacks.
+
+Story:
+The former HIGH SCORE state/hitbox has been renamed to STORY.
+Clicking the same menu location starts s1.png, s2.png, s3.png, s4.png.
+Each page is shown for 3 seconds, then the game returns to HOME after s4.
+
+LEVEL 3 - "THE FINAL ESCAPE"
+The third and final level. Progression is now:
+    LEVEL 1 -> LEVEL 2 -> LEVEL 3 -> FINAL VICTORY
+NEXT LEVEL on the completion screen routes by which level was just
+finished (levelCompleteFromLevel); Level 3 never reaches that screen at
+all - it ends in STATE_VICTORY - so there is no way to ask for a Level 4.
+
+Level 3 is built from the SAME primitives as Levels 1 and 2 (wall[],
+jWall[], mWall[], button[], enemy[], and the one shared height[]/
+blockData[] collision map), plus two new level-3-only systems:
+  - collapsing platforms (level3Collapse[], see CollapsePlatform in
+    game_types.h) that shake for a beat and then give way, and
+  - one rising flood (level3WaterLevel) that REUSES the existing Level 2
+    drowning sequence rather than adding a second water system.
+It also adds one multi-phase final Guardian and a timed escape run.
+
+Where the Level 3 code lives (same split the rest of the game uses):
+  game_types.h   - CollapsePlatform and Guardian structs
+  game_globals.h - every level3*/LEVEL3_* constant and variable
+  next_level.h   - setupLevel3() (the level data) and handleOButton()
+  controls.h     - updateLevel3() (all Level 3 logic)
+  images.h       - drawLevel3*() (all Level 3 drawing) + victory screen
+  combat.h       - the Guardian's half of the damage exchange
+  reset.h        - the Level 3 retry branch
+  sounds.h       - victory music + optional Level 3 effect sounds
+
+Testing shortcuts (both work without affecting normal progression):
+  P - from Level 1 only, jump straight to Level 2 (unchanged)
+  O - from ANY screen, jump straight to Level 3
+
+
+ASSET LAYOUT
+------------
+Every image the game loads lives under iGame/Assets/, sorted by what it
+is. Paths in the source are relative to the project directory, which is
+where the game runs from.
+
+  Assets/Player/            50  the Prince: idle and walk cycles (l0-l13,
+                                r0-r13), attack (al/ar), falling (freeL/
+                                freeR), drowning (drown1-6), swimming
+                                (swim_*), and the Level 2 crouch (crawl_*)
+  Assets/Enemies/           26  guards: walk (le/re) and attack (lea/rea)
+  Assets/Enemies/Bats/       6  Level 2's cave bats
+  Assets/Enemies/Fish/       6  Level 3's piranhas
+  Assets/Platforms/Level1/   7  palace brick tiles
+  Assets/Platforms/Level2/   8  cave tiles (+ the ceiling variant)
+  Assets/Platforms/Level3/   7  desert sandstone tiles
+  Assets/Water/              6  Level 2 poison, Level 3 sea, and the
+                                original blue water tiles
+  Assets/Backgrounds/        9  splash, menu, the three level backdrops,
+                                level-complete, game-over, credits,
+                                instructions
+  Assets/UI/                 6  life bar, in-game HOME icon, story pages
+  Assets/Objects/            3  health heart, switch on/off
+
+File NAMES are unchanged - only their folders - so any comment in the
+source that names an image by filename still reads true.
+
+Audio was deliberately left where it was: the .wav and .mp3 files the
+game opens sit in the project directory beside main.cpp.
